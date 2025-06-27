@@ -67,6 +67,12 @@ const VisuallyHidden = ({
   </span>
 )
 
+function isSheetTitleElement(child: unknown): child is React.ReactElement {
+  if (!React.isValidElement(child)) return false;
+  const type = child.type as any;
+  return type?.displayName === "SheetTitle" || type?.name === "SheetTitle";
+}
+
 function SheetContent({
   className,
   children,
@@ -82,11 +88,7 @@ function SheetContent({
   hideTitle?: boolean
 }) {
   // Check if children already include a SheetTitle
-  const hasTitle = React.Children.toArray(children).some(
-    (child: any) =>
-      child?.type?.displayName === "SheetTitle" ||
-      child?.type?.name === "SheetTitle"
-  )
+  const hasTitle = React.Children.toArray(children).some(isSheetTitleElement)
 
   return (
     <SheetPortal>
