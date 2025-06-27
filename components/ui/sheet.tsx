@@ -69,7 +69,7 @@ const VisuallyHidden = ({
 
 function isSheetTitleElement(child: unknown): child is React.ReactElement {
   if (!React.isValidElement(child)) return false;
-  const type = child.type as any;
+  const type = child.type as { displayName?: string; name?: string };
   return type?.displayName === "SheetTitle" || type?.name === "SheetTitle";
 }
 
